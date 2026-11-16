@@ -1,0 +1,491 @@
+@model AiToolsPortal.Models.AiToolsViewModel
+@{
+    ViewBag.Title = "9 Essential AI Tools Intelligence Hub";
+    var activeTab = string.IsNullOrWhiteSpace(Model.ActiveTab) ? "overview" : Model.ActiveTab.ToLower();
+}
+
+<div class="container-fluid px-lg-4">
+    <!-- Hero Banner -->
+    <div class="hero-banner p-4 p-lg-5 mb-4 rounded-4 shadow-sm position-relative overflow-hidden">
+        <div class="row align-items-center position-relative z-1">
+            <div class="col-lg-8">
+                <div class="d-inline-flex align-items-center gap-2 mb-2 px-3 py-1 rounded-pill bg-primary-subtle text-primary border border-primary-subtle fs-xs fw-semibold">
+                    <i class="bi bi-stars"></i> Next-Gen AI Productivity Suite
+                </div>
+                <h1 class="display-5 fw-extrabold mb-2 tracking-tight">
+                    The Ultimate <span class="text-gradient">AI Tools</span> Intelligence Hub
+                </h1>
+                <p class="lead text-secondary mb-3 fs-6 max-w-750">
+                    Discover 9 industry-defining artificial intelligence tools across research, design, developer prototyping, voice dictation, agentic workflows, data science, cinematic video, and synthetic audio. Learn how each tool works, how it multiplies your productivity, and watch dedicated video deep-dives.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-body-tertiary text-body border px-3 py-2 rounded-pill"><i class="bi bi-collection-play me-1 text-danger"></i> 9 Embedded Video Guides</span>
+                    <span class="badge bg-body-tertiary text-body border px-3 py-2 rounded-pill"><i class="bi bi-file-earmark-text me-1 text-primary"></i> 1-Paragraph Deep Dives</span>
+                    <span class="badge bg-body-tertiary text-body border px-3 py-2 rounded-pill"><i class="bi bi-segmented-nav me-1 text-info"></i> Dedicated Multi-Tabs</span>
+                    <span class="badge bg-body-tertiary text-body border px-3 py-2 rounded-pill"><i class="bi bi-table me-1 text-success"></i> Comparison Matrix</span>
+                </div>
+            </div>
+            <div class="col-lg-4 d-none d-lg-block text-end">
+                <div class="stats-card p-3 rounded-4 bg-body-tertiary border shadow-sm text-start d-inline-block">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <div class="stat-icon bg-primary text-white rounded-3 p-2">
+                            <i class="bi bi-cpu fs-4"></i>
+                        </div>
+                        <div>
+                            <div class="fs-4 fw-bold mb-0">9 AI Tools</div>
+                            <small class="text-secondary">Curated & Tested</small>
+                        </div>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2 fs-xs text-secondary">
+                        <span>Research &bullet; Audio &bullet; Video</span>
+                        <span class="text-success fw-semibold">100% Ready</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs Header -->
+    <div class="nav-tabs-wrapper mb-4 sticky-nav-wrapper">
+        <ul class="nav nav-pills custom-pills flex-nowrap overflow-x-auto pb-2 border-bottom" id="aiToolsTabs" role="tablist">
+            <!-- All Overview Tab -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link @(activeTab == "overview" ? "active" : "")" id="tab-btn-overview" data-bs-toggle="pill" data-bs-target="#tab-overview" type="button" role="tab" aria-controls="tab-overview" aria-selected="@(activeTab == "overview" ? "true" : "false")">
+                    <i class="bi bi-grid-fill me-1"></i> All Tools Overview
+                </button>
+            </li>
+            
+            <!-- Tab for each of the 9 tools -->
+            @foreach (var tool in AiToolsPortal.Models.AiToolsData.GetAllTools())
+            {
+                var isToolActive = activeTab == tool.Id;
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link @(isToolActive ? "active" : "") text-nowrap" id="tab-btn-@tool.Id" data-bs-toggle="pill" data-bs-target="#tab-@tool.Id" type="button" role="tab" aria-controls="tab-@tool.Id" aria-selected="@(isToolActive ? "true" : "false")">
+                        <i class="bi @tool.IconClass me-1 text-@tool.BadgeColor"></i> @tool.Name
+                    </button>
+                </li>
+            }
+
+            <!-- Comparison Matrix Tab -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link @(activeTab == "matrix" ? "active" : "")" id="tab-btn-matrix" data-bs-toggle="pill" data-bs-target="#tab-matrix" type="button" role="tab" aria-controls="tab-matrix" aria-selected="@(activeTab == "matrix" ? "true" : "false")">
+                    <i class="bi bi-table me-1 text-info"></i> Comparison Matrix
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Panes Content -->
+    <div class="tab-content" id="aiToolsTabsContent">
+        
+        <!-- ========================================== -->
+        <!-- TAB 1: ALL TOOLS OVERVIEW (GRID / SEARCH) -->
+        <!-- ========================================== -->
+        <div class="tab-pane fade @(activeTab == "overview" ? "show active" : "")" id="tab-overview" role="tabpanel" aria-labelledby="tab-btn-overview">
+            
+            <!-- Search & Category Filters Bar -->
+            <div class="row align-items-center g-3 mb-4">
+                <div class="col-md-6 col-lg-5">
+                    <div class="input-group search-bar shadow-sm">
+                        <span class="input-group-text bg-body border-end-0 text-secondary">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" id="liveSearchInput" class="form-control bg-body border-start-0" placeholder="Search tools by name, superpower, category, or keyword..." />
+                        <button class="btn btn-outline-secondary border-start-0" type="button" id="clearSearchBtn" title="Clear Search">
+                            <i class="bi bi-x-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-7">
+                    <div class="d-flex flex-wrap gap-1 justify-content-md-end filter-pills">
+                        <button class="btn btn-sm btn-outline-primary active filter-btn" data-filter="all">All (9)</button>
+                        <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="Research & Writing">Research & Writing</button>
+                        <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="Design & UI/UX">Design & UI/UX</button>
+                        <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="Developer & Prototyping">Developer & Prototyping</button>
+                        <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="Voice & Audio">Voice & Audio</button>
+                        <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="General Intelligence">General AI</button>
+                        <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="Data Science">Data Science</button>
+                        <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="Video & Media">Video & Media</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools Card Grid -->
+            <div class="row g-4" id="toolsGrid">
+                @foreach (var tool in AiToolsPortal.Models.AiToolsData.GetAllTools())
+                {
+                    <div class="col-md-6 col-xl-4 tool-grid-card" data-category="@tool.Category" data-name="@tool.Name.ToLower()" data-desc="@tool.OneParagraphDescription.ToLower()">
+                        <div class="card h-100 tool-card border shadow-sm rounded-4 transition-all">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-start">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="tool-icon-wrapper rounded-3 bg-@tool.BadgeColor-subtle text-@tool.BadgeColor p-2">
+                                        <i class="bi @tool.IconClass fs-3"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title fw-bold mb-0">@tool.Name</h5>
+                                        <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill fs-xs">@tool.Category</span>
+                                    </div>
+                                </div>
+                                <a href="@tool.OfficialUrl" target="_blank" class="btn btn-outline-secondary btn-sm rounded-circle p-2" title="Visit Official Website">
+                                    <i class="bi bi-box-arrow-up-right"></i>
+                                </a>
+                            </div>
+
+                            <div class="card-body px-4 py-3">
+                                <p class="text-primary-emphasis fw-medium small mb-2">
+                                    <i class="bi bi-lightning-charge-fill text-warning me-1"></i> @tool.ShortTagline
+                                </p>
+                                
+                                <div class="description-preview-box p-3 rounded-3 bg-body-tertiary mb-3 border">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fs-xs fw-bold text-uppercase text-secondary tracking-wide">
+                                            <i class="bi bi-chat-quote me-1"></i> 1-Paragraph Description
+                                        </span>
+                                        <button class="btn btn-link btn-xs p-0 text-secondary copy-btn" data-clipboard-text="@tool.OneParagraphDescription" title="Copy paragraph">
+                                            <i class="bi bi-copy"></i>
+                                        </button>
+                                    </div>
+                                    <p class="card-text text-secondary small mb-0 line-clamp-4">
+                                        @tool.OneParagraphDescription
+                                    </p>
+                                </div>
+
+                                <!-- Key Highlights -->
+                                <div class="mb-3">
+                                    <div class="fs-xs fw-bold text-uppercase text-secondary mb-1">Top Superpower:</div>
+                                    <div class="d-flex align-items-center gap-2 text-body small">
+                                        <i class="bi bi-check-circle-fill text-success fs-xs"></i>
+                                        <span>@(tool.KeyFeatures != null && tool.KeyFeatures.Count > 0 ? tool.KeyFeatures[0] : "")</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-transparent border-top px-4 py-3 d-flex justify-content-between align-items-center">
+                                <button class="btn btn-outline-primary btn-sm rounded-pill switch-to-tab-btn" data-target-tab="@tool.Id">
+                                    <i class="bi bi-play-circle-fill me-1 text-danger"></i> Watch Video & Full Tab
+                                </button>
+                                <a href="@tool.OfficialUrl" target="_blank" class="text-decoration-none small text-secondary">
+                                    Official Site <i class="bi bi-chevron-right fs-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="noResultsState" class="text-center py-5 d-none">
+                <i class="bi bi-search text-secondary display-4 mb-3"></i>
+                <h4 class="fw-bold">No AI Tools Found</h4>
+                <p class="text-secondary">Try adjusting your search query or reset the category filter.</p>
+                <button class="btn btn-primary btn-sm rounded-pill px-4" id="resetFiltersBtn">Reset Filters</button>
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- DEDICATED INDIVIDUAL TABS FOR EACH OF THE 9 AI TOOLS   -->
+        <!-- ======================================================== -->
+        @foreach (var tool in AiToolsPortal.Models.AiToolsData.GetAllTools())
+        {
+            var isPaneActive = activeTab == tool.Id;
+            <div class="tab-pane fade @(isPaneActive ? "show active" : "")" id="tab-@tool.Id" role="tabpanel" aria-labelledby="tab-btn-@tool.Id">
+                
+                <!-- Tool Header Card -->
+                <div class="card border rounded-4 shadow-sm mb-4 overflow-hidden">
+                    <div class="card-body p-4 p-lg-4 bg-body-tertiary border-bottom">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="tool-hero-icon rounded-4 bg-@tool.BadgeColor-subtle text-@tool.BadgeColor p-3">
+                                    <i class="bi @tool.IconClass fs-2"></i>
+                                </div>
+                                <div>
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <h2 class="h3 fw-bold mb-0">@tool.Name</h2>
+                                        <span class="badge bg-@tool.BadgeColor-subtle text-@tool.BadgeColor border border-@tool.BadgeColor-subtle rounded-pill">@tool.Category</span>
+                                    </div>
+                                    <p class="text-secondary mb-0 fw-medium">@tool.ShortTagline</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 copy-btn" data-clipboard-text="@tool.OneParagraphDescription">
+                                    <i class="bi bi-clipboard me-1"></i> Copy 1-Para Description
+                                </button>
+                                <a href="@tool.OfficialUrl" target="_blank" class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i> Launch @tool.Name
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Highlighted One-Paragraph Description Card (User Specific Requirement) -->
+                    <div class="p-4 bg-body">
+                        <div class="one-paragraph-callout p-4 rounded-4 border border-primary-subtle bg-primary-subtle text-body shadow-sm position-relative">
+                            <div class="d-flex align-items-center gap-2 mb-2 text-primary fw-bold text-uppercase fs-xs tracking-wider">
+                                <i class="bi bi-stars"></i> Comprehensive 1-Paragraph Description: How It Works & How It Helps Me
+                            </div>
+                            <blockquote class="blockquote mb-0 fs-6 lh-base fw-normal">
+                                "@tool.OneParagraphDescription"
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two-Column Breakdown: Details & YouTube Embedded Video -->
+                <div class="row g-4">
+                    <!-- Left Column: How it Works, How it Helps, Key Features & Prompts -->
+                    <div class="col-lg-6">
+                        
+                        <!-- Technical Architecture & Ingestion -->
+                        <div class="card border rounded-4 shadow-sm mb-4">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                                <h5 class="fw-bold mb-0 text-primary d-flex align-items-center gap-2">
+                                    <i class="bi bi-gear-wide-connected"></i> How It Works (Architecture & Mechanics)
+                                </h5>
+                            </div>
+                            <div class="card-body px-4 py-3">
+                                <p class="text-secondary mb-0">
+                                    @tool.HowItWorksDetails
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Practical User Utility: How It Helps Me -->
+                        <div class="card border rounded-4 shadow-sm mb-4">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                                <h5 class="fw-bold mb-0 text-success d-flex align-items-center gap-2">
+                                    <i class="bi bi-shield-check"></i> How It Helps You (Productivity Multipliers)
+                                </h5>
+                            </div>
+                            <div class="card-body px-4 py-3">
+                                <p class="text-secondary mb-0">
+                                    @tool.HowItHelpsDetails
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Key Features & Capabilities List -->
+                        <div class="card border rounded-4 shadow-sm mb-4">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                                <h5 class="fw-bold mb-0 text-body d-flex align-items-center gap-2">
+                                    <i class="bi bi-check2-all text-info"></i> Core Features & Capabilities
+                                </h5>
+                            </div>
+                            <div class="card-body px-4 py-3">
+                                <ul class="list-unstyled mb-0 d-flex flex-column gap-2">
+                                    @foreach (var feature in tool.KeyFeatures)
+                                    {
+                                        <li class="d-flex align-items-start gap-2 text-secondary small">
+                                            <i class="bi bi-check-circle-fill text-primary mt-1 flex-shrink-0"></i>
+                                            <span>@feature</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Practical Real-World Use Cases -->
+                        <div class="card border rounded-4 shadow-sm mb-4">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                                <h5 class="fw-bold mb-0 text-body d-flex align-items-center gap-2">
+                                    <i class="bi bi-briefcase text-warning"></i> Real-World Use Cases
+                                </h5>
+                            </div>
+                            <div class="card-body px-4 py-3">
+                                <div class="d-flex flex-column gap-2">
+                                    @foreach (var useCase in tool.PracticalUseCases)
+                                    {
+                                        <div class="p-2 rounded-3 bg-body-tertiary border small d-flex align-items-start gap-2">
+                                            <i class="bi bi-arrow-right-short text-warning fs-5 flex-shrink-0 mt-n1"></i>
+                                            <span>@useCase</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sample Prompt / Action Command -->
+                        @if (!string.IsNullOrWhiteSpace(tool.SamplePrompt))
+                        {
+                            <div class="card border rounded-4 shadow-sm mb-4">
+                                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                                    <h5 class="fw-bold mb-0 text-body d-flex align-items-center gap-2">
+                                        <i class="bi bi-terminal text-danger"></i> Sample Prompt / Command
+                                    </h5>
+                                    <button class="btn btn-link btn-sm text-secondary copy-btn p-0" data-clipboard-text="@tool.SamplePrompt">
+                                        <i class="bi bi-copy"></i> Copy
+                                    </button>
+                                </div>
+                                <div class="card-body px-4 py-3">
+                                    <div class="prompt-code-box p-3 rounded-3 bg-dark text-light font-monospace small border">
+                                        <code>@tool.SamplePrompt</code>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Right Column: Embedded YouTube Video Player & Official Links -->
+                    <div class="col-lg-6">
+                        <div class="card border rounded-4 shadow-sm sticky-top" style="top: 80px;">
+                            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-2 d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold mb-0 d-flex align-items-center gap-2">
+                                    <i class="bi bi-youtube text-danger"></i> Embedded Video Tutorial & Overview
+                                </h5>
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill fs-xs">
+                                    YouTube HD
+                                </span>
+                            </div>
+
+                            <div class="card-body px-4 py-2">
+                                <p class="text-secondary small mb-3">
+                                    Watch this selected tutorial and comprehensive walkthrough specific to <strong>@tool.Name</strong>.
+                                </p>
+                                
+                                <!-- 16:9 Responsive YouTube Embed Container -->
+                                <div class="ratio ratio-16x9 rounded-4 overflow-hidden border shadow-sm mb-3 bg-black">
+                                    <iframe 
+                                        src="@tool.YouTubeEmbedUrl" 
+                                        title="@tool.YouTubeVideoTitle" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen
+                                        loading="lazy">
+                                    </iframe>
+                                </div>
+
+                                <div class="p-3 rounded-3 bg-body-tertiary border mb-3">
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <i class="bi bi-play-btn-fill text-danger fs-5"></i>
+                                        <div class="fw-bold small text-truncate">@tool.YouTubeVideoTitle</div>
+                                    </div>
+                                    <small class="text-secondary d-block">
+                                        Video ID: <code>@tool.YouTubeVideoId</code> &bull; Verified tutorial covering end-to-end features, workflows, and tips.
+                                    </small>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <a href="@tool.YouTubeWatchUrl" target="_blank" class="btn btn-outline-danger btn-sm rounded-pill">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i> Open on YouTube
+                                    </a>
+                                    <a href="@tool.OfficialUrl" target="_blank" class="btn btn-primary btn-sm rounded-pill shadow-sm">
+                                        <i class="bi bi-link-45deg me-1"></i> Visit Official Site: @tool.OfficialUrl
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-transparent border-top px-4 py-3 d-flex justify-content-between align-items-center">
+                                <button class="btn btn-sm btn-link text-secondary p-0 switch-to-tab-btn" data-target-tab="overview">
+                                    <i class="bi bi-arrow-left me-1"></i> Back to Overview
+                                </button>
+                                <button class="btn btn-sm btn-link text-info p-0 switch-to-tab-btn" data-target-tab="matrix">
+                                    Compare in Matrix <i class="bi bi-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        <!-- ======================================================== -->
+        <!-- TAB 11: INTERACTIVE COMPARISON MATRIX                    -->
+        <!-- ======================================================== -->
+        <div class="tab-pane fade @(activeTab == "matrix" ? "show active" : "")" id="tab-matrix" role="tabpanel" aria-labelledby="tab-btn-matrix">
+            <div class="card border rounded-4 shadow-sm overflow-hidden mb-4">
+                <div class="card-header bg-body-tertiary border-bottom p-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <div>
+                            <h3 class="h4 fw-bold mb-1 d-flex align-items-center gap-2">
+                                <i class="bi bi-table text-info"></i> All 9 AI Tools Comparison Matrix
+                            </h3>
+                            <p class="text-secondary mb-0 small">
+                                Direct side-by-side analysis of category, core technology, superpowers, and video tutorials.
+                            </p>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="window.print()">
+                            <i class="bi bi-printer me-1"></i> Print / Save PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 custom-matrix-table">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" style="min-width: 180px;">AI Tool</th>
+                                <th scope="col" style="min-width: 140px;">Category</th>
+                                <th scope="col" style="min-width: 250px;">Core Superpower (How It Helps)</th>
+                                <th scope="col" style="min-width: 220px;">Underlying AI Mechanics</th>
+                                <th scope="col" style="min-width: 130px;">Action / Tab</th>
+                                <th scope="col" style="min-width: 120px;">Video Guide</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var tool in AiToolsPortal.Models.AiToolsData.GetAllTools())
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="matrix-tool-icon rounded-3 bg-@tool.BadgeColor-subtle text-@tool.BadgeColor p-2">
+                                                <i class="bi @tool.IconClass"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-body">@tool.Name</div>
+                                                <a href="@tool.OfficialUrl" target="_blank" class="fs-xs text-secondary text-decoration-none">
+                                                    @tool.OfficialUrl.Replace("https://", "").TrimEnd('/') <i class="bi bi-arrow-up-right fs-xs"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-@tool.BadgeColor-subtle text-@tool.BadgeColor border border-@tool.BadgeColor-subtle rounded-pill">
+                                            @tool.Category
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="small text-secondary lh-sm">
+                                            @tool.ShortTagline
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="small text-secondary-emphasis lh-sm">
+                                            @(!string.IsNullOrEmpty(tool.HowItWorksDetails) && tool.HowItWorksDetails.Length > 95 ? tool.HowItWorksDetails.Substring(0, 95) + "..." : tool.HowItWorksDetails)
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-outline-primary btn-xs rounded-pill switch-to-tab-btn" data-target-tab="@tool.Id">
+                                            View Tab <i class="bi bi-arrow-right"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <a href="@tool.YouTubeWatchUrl" target="_blank" class="btn btn-outline-danger btn-xs rounded-pill">
+                                            <i class="bi bi-youtube me-1"></i> Watch
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Quick Toast for Copy Feedback -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="copyToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Description copied to clipboard successfully!</span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>

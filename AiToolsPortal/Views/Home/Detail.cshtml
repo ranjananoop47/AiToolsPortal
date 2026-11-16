@@ -1,0 +1,114 @@
+@model AiToolsPortal.Models.AiToolItem
+@{
+    ViewBag.Title = Model.Name + " - Deep Dive";
+}
+
+<div class="container py-4">
+    <div class="mb-3">
+        <a href="@Url.Action("Index", "Home", new { tab = Model.Id })" class="btn btn-outline-secondary btn-sm rounded-pill">
+            <i class="bi bi-arrow-left me-1"></i> Back to Main Hub Tab
+        </a>
+    </div>
+
+    <!-- Header Card -->
+    <div class="card border rounded-4 shadow-sm mb-4">
+        <div class="card-body p-4 bg-body-tertiary border-bottom">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-4 bg-@Model.BadgeColor-subtle text-@Model.BadgeColor p-3 fs-2">
+                        <i class="bi @Model.IconClass"></i>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <h1 class="h3 fw-bold mb-0">@Model.Name</h1>
+                            <span class="badge bg-@Model.BadgeColor-subtle text-@Model.BadgeColor border border-@Model.BadgeColor-subtle rounded-pill">@Model.Category</span>
+                        </div>
+                        <p class="text-secondary mb-0">@Model.ShortTagline</p>
+                    </div>
+                </div>
+                <div>
+                    <a href="@Model.OfficialUrl" target="_blank" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Visit Official Site
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1-Paragraph Description -->
+        <div class="p-4 bg-body">
+            <div class="p-4 rounded-4 border border-primary-subtle bg-primary-subtle text-body">
+                <div class="fw-bold text-primary text-uppercase fs-xs tracking-wider mb-2">
+                    <i class="bi bi-stars"></i> One-Paragraph Core Overview: How It Works & How It Helps
+                </div>
+                <blockquote class="blockquote mb-0 fs-6 lh-base">
+                    "@Model.OneParagraphDescription"
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video & Features -->
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card border rounded-4 shadow-sm mb-4">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                    <h5 class="fw-bold text-primary"><i class="bi bi-gear-fill me-1"></i> How It Works</h5>
+                </div>
+                <div class="card-body px-4 py-3">
+                    <p class="text-secondary mb-0">@Model.HowItWorksDetails</p>
+                </div>
+            </div>
+
+            <div class="card border rounded-4 shadow-sm mb-4">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                    <h5 class="fw-bold text-success"><i class="bi bi-shield-check me-1"></i> How It Helps You</h5>
+                </div>
+                <div class="card-body px-4 py-3">
+                    <p class="text-secondary mb-0">@Model.HowItHelpsDetails</p>
+                </div>
+            </div>
+
+            <div class="card border rounded-4 shadow-sm">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                    <h5 class="fw-bold"><i class="bi bi-check2-circle me-1 text-info"></i> Key Features</h5>
+                </div>
+                <div class="card-body px-4 py-3">
+                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2">
+                        @foreach (var feature in Model.KeyFeatures)
+                        {
+                            <li class="d-flex align-items-start gap-2 text-secondary small">
+                                <i class="bi bi-check-circle-fill text-primary mt-1 flex-shrink-0"></i>
+                                <span>@feature</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card border rounded-4 shadow-sm">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                    <h5 class="fw-bold text-danger"><i class="bi bi-youtube me-1"></i> Embedded YouTube Guide</h5>
+                </div>
+                <div class="card-body px-4 py-3">
+                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden border shadow-sm mb-3 bg-black">
+                        <iframe 
+                            src="@Model.YouTubeEmbedUrl" 
+                            title="@Model.YouTubeVideoTitle" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="p-3 rounded-3 bg-body-tertiary border mb-3">
+                        <div class="fw-bold small">@Model.YouTubeVideoTitle</div>
+                        <small class="text-secondary">Official / verified guide covering core workflows.</small>
+                    </div>
+                    <a href="@Model.YouTubeWatchUrl" target="_blank" class="btn btn-outline-danger btn-sm rounded-pill w-100">
+                        <i class="bi bi-play-circle me-1"></i> Watch directly on YouTube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

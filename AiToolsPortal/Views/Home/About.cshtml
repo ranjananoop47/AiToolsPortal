@@ -1,0 +1,99 @@
+@{
+    ViewBag.Title = "About AI Nexus Portal";
+}
+
+<div class="container py-4">
+    <div class="card border rounded-4 shadow-sm p-4 p-lg-5 mb-4 bg-body">
+        <div class="d-inline-flex align-items-center gap-2 mb-2 px-3 py-1 rounded-pill bg-primary-subtle text-primary border border-primary-subtle fs-xs fw-semibold">
+            <i class="bi bi-info-circle-fill"></i> Architectural Overview
+        </div>
+        <h1 class="display-6 fw-bold mb-3 tracking-tight">About the AI Nexus Intelligence Portal</h1>
+        <p class="lead text-secondary mb-4">
+            A specialized C# ASP.NET MVC .NET Framework enterprise web portal designed to catalog, explain, and demonstrate 9 industry-leading artificial intelligence tools with responsive multi-tab navigation and embedded YouTube video guides.
+        </p>
+
+        <hr class="my-4 border-secondary-subtle" />
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border rounded-4 bg-body-tertiary p-3">
+                    <h5 class="fw-bold text-primary mb-2"><i class="bi bi-layers-fill me-2"></i> C# ASP.NET MVC 5</h5>
+                    <p class="text-secondary small mb-0">
+                        Built on Microsoft .NET Framework 4.8 utilizing the Model-View-Controller architecture, strongly-typed Razor view models, and centralized route handling.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border rounded-4 bg-body-tertiary p-3">
+                    <h5 class="fw-bold text-success mb-2"><i class="bi bi-segmented-nav me-2"></i> Multi-Tab Navigation</h5>
+                    <p class="text-secondary small mb-0">
+                        Supports seamless tab switching between an overarching card grid, 9 dedicated deep-dive tabs for each specific tool, and a consolidated comparison matrix.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border rounded-4 bg-body-tertiary p-3">
+                    <h5 class="fw-bold text-danger mb-2"><i class="bi bi-youtube me-2"></i> Verified YouTube Embeds</h5>
+                    <p class="text-secondary small mb-0">
+                        Each tool is paired with an authentic, verified YouTube tutorial and walkthrough embed rendered in a responsive 16:9 ratio player container.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="h5 fw-bold mb-3">Covered AI Tools:</h3>
+        <div class="row g-2">
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-primary">1. Google NotebookLM:</strong> Grounded AI Research & Audio Overviews.
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-info">2. Google Stitch:</strong> AI-Native Vibe Design & Prompt-to-UI.
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-danger">3. Google AI Studio:</strong> Gemini Multimodal Developer Playground.
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-warning">4. Wispr Flow:</strong> High-Speed Voice Dictation & Ambient Typing.
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-success">5. Claude AI:</strong> Frontier Reasoning, Coding & Artifacts.
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-secondary">6. Julius AI:</strong> Conversational Python & R Data Science.
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-dark">7. Higgsfield AI:</strong> Cinematic Video Diffusion & Camera Motion.
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-primary">8. Claude Skills:</strong> Modular Agentic Competencies & SKILL.md.
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-2 border rounded-3 bg-body-tertiary small">
+                    <strong class="text-danger">9. ElevenLabs:</strong> Hyper-Realistic Speech & Voice Cloning.
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary rounded-pill px-4">
+                <i class="bi bi-grid-fill me-1"></i> Explore the AI Tools
+            </a>
+        </div>
+    </div>
+</div>
